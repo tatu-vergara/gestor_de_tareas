@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Mis tareas{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h3 mb-0">Mis tareas</h1>
+  <a href="{% url 'tareas:agregar' %}" class="btn btn-primary">+ Nueva tarea</a>
+</div>
+
+{% if tareas %}
+  <div class="list-group">
+    {% for tarea in tareas %}
+      <a href="{% url 'tareas:detalle' forloop.counter0 %}" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+          <h2 class="h6 mb-1">{{ tarea.titulo }}</h2>
+          <small>#{{ forloop.counter0 }}</small>
+        </div>
+        <p class="mb-1 text-muted">{{ tarea.descripcion|default:"(Sin descripción)" }}</p>
+      </a>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="alert alert-secondary">Aún no tienes tareas. ¡Crea la primera!</div>
+{% endif %}
+{% endblock %}
